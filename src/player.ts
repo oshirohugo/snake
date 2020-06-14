@@ -1,28 +1,18 @@
 import { Rect } from "konva/types/shapes/Rect";
 import Konva from "konva";
-import { Layer } from "konva/types/Layer";
 
-type Pos = {
-  x: number;
-  y: number;
-};
+import { PLAYER_SIZE, GRID_SIZE, PLAYER_COLOR, BACKGROUND_COLOR } from "./game-params";
+import { Pos } from "./types";
 
 class Player {
   body: Rect[] = [];
-  layer: Layer;
-  static width: number = 20;
-  static height: number = 20;
-  fill: string;
   control: Pos;
   lastPos: Pos;
   live: boolean = true;
 
-  constructor(layer: Layer, start: Pos) {
-    this.fill = "#e91e63";
-    const head = Player.createNewPiece(start, this.fill);
+  constructor(start: Pos) {
+    const head = Player.createNewPiece(start);
     this.body.push(head);
-    this.layer = layer;
-    this.layer.add(head);
   }
 
   public get x() {
@@ -33,11 +23,11 @@ class Player {
     return this.body[0].y();
   }
 
-  private get head() {
+  public get head() {
     return this.body[0];
   }
 
-  private get tail() {
+  public get tail() {
     return this.body[this.body.length - 1];
   }
 
@@ -59,19 +49,18 @@ class Player {
       x: this.lastPos.x,
       y: this.lastPos.y,
     };
-    this.body.push(Player.createNewPiece(pos, this.fill));
-    this.layer.add(this.tail);
+    this.body.push(Player.createNewPiece(pos));
   }
 
-  private static createNewPiece(pos: Pos, fill: string) {
+  private static createNewPiece(pos: Pos, fill: string = PLAYER_COLOR) {
     const { x, y } = pos;
     return new Konva.Rect({
       x,
       y,
-      width: Player.width,
-      height: Player.height,
+      width: PLAYER_SIZE,
+      height: PLAYER_SIZE,
       fill,
-      stroke: "black",
+      stroke: BACKGROUND_COLOR,
       strokeWidth: 4,
     });
   }
@@ -90,8 +79,12 @@ class Player {
     }
     this.lastPos = previousPos;
 
-    this.head.x(Player.moveUnderLimit(this.head.x() + control.x, xLimit - 20));
-    this.head.y(Player.moveUnderLimit(this.head.y() + control.y, yLimit - 20));
+    this.head.x(
+      Player.moveUnderLimit(this.head.x() + control.x, xLimit - GRID_SIZE)
+    );
+    this.head.y(
+      Player.moveUnderLimit(this.head.y() + control.y, yLimit - GRID_SIZE)
+    );
   }
 
   private static moveUnderLimit(newPos: number, limit: number) {

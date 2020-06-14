@@ -1,11 +1,8 @@
 import { Rect } from "konva/types/shapes/Rect";
 import Konva from "konva";
-import { Layer } from "konva/types/Layer";
 
-type Pos = {
-  x: number;
-  y: number;
-};
+import { GRID_SIZE, FRUIT_SIZE, FRUIT_COLOR, BACKGROUND_COLOR } from "./game-params";
+import { Pos } from "./types";
 
 class Fruit {
   node: Rect;
@@ -14,18 +11,17 @@ class Fruit {
   fill: string;
   limits: Pos;
 
-  constructor(layer: Layer, limits: Pos) {
+  constructor(limits: Pos) {
     this.limits = limits;
     this.node = new Konva.Rect({
-      x: Fruit.generateRandomInt(limits.x - 20),
-      y: Fruit.generateRandomInt(limits.y - 20),
-      width: Fruit.width,
-      height: Fruit.height,
-      fill: "#66bb6a",
-      stroke: "black",
+      x: Fruit.generateRandomInt(limits.x - GRID_SIZE),
+      y: Fruit.generateRandomInt(limits.y - GRID_SIZE),
+      width: FRUIT_SIZE,
+      height: FRUIT_SIZE,
+      fill: FRUIT_COLOR,
+      stroke: BACKGROUND_COLOR,
       strokeWidth: 4,
     });
-    layer.add(this.node);
   }
 
   public get x() {
@@ -41,7 +37,7 @@ class Fruit {
     this.node.y(Fruit.generateRandomInt(this.limits.y));
   }
 
-  private static generateRandomInt(max: number, gridSize: number = 20) {
+  private static generateRandomInt(max: number, gridSize: number = GRID_SIZE) {
     const limit = max / gridSize;
     return Math.floor(Math.random() * Math.floor(limit)) * gridSize;
   }

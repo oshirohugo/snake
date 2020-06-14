@@ -1,0 +1,11 @@
+export const GRID_SIZE = 20;
+export const PLAYER_SIZE = GRID_SIZE;
+export const PLAYER_COLOR = "#e91e63";
+export const FRUIT_SIZE = GRID_SIZE;
+export const FRUIT_COLOR = "#66bb6a";
+export const DELTA = GRID_SIZE;
+export const INITIAL_SPEED = 5; // renders per second
+export const WIDTH = GRID_SIZE * 20;
+export const HEIGHT = GRID_SIZE * 20;
+export const BACKGROUND_COLOR = "#040404"
+export const TEXT_COLOR = "#ffffff"
