@@ -1,6 +1,6 @@
 # Snake game
 
-This is a simple snake game. If you want to see it live, go to this [url](http://www.students.ic.unicamp.br/~ra146446/)
+This is a simple snake game. If you want to see it live, go to this [url](http://www.students.ic.unicamp.br/~ra146446/snake)
 
 ![snake gif](screenshot.gif)
 
